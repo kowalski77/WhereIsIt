@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "WhereIsIt": {
+      "commandName": "Project",
+      "commandLineArgs": "\"C:\\Users\\ARCH2\\Desktop\\TestStr\\test.csv\""
+    }
+  }
+}
