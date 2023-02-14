@@ -19,12 +19,9 @@ internal class CharacterSplitter : IMultiwaySplitter
     public Maybe<Entry> ApplyTo(Line line)
     {
         var parts = line.Value.Split(this.Character);
-        if (parts.Length < 2)
-        {
-            return None.Value;
-        }
-
-        return Entry.New(parts[0], parts[1], parts[2]);
+        return parts.Length < 2 ? 
+            None.Value : 
+            Entry.New(parts[0], parts[1], parts[2]);
     }
 
     public static IMultiwaySplitter SemicolonSplitter => new CharacterSplitter(';');
