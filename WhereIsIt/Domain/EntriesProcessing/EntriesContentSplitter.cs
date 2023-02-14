@@ -6,8 +6,8 @@ namespace WhereIsIt.Domain.EntriesProcessing;
 internal class EntriesContentSplitter : RuleBasedProcessor
 {
     protected override IMultiwaySplitter Splitter =>
-        CharacterSplitter.SemicolonSpliter
-        .Append(CharacterSplitter.CommaSpliter);
+        CharacterSplitter.SemicolonSplitter
+        .Append(CharacterSplitter.CommaSplitter);
 }
 
 internal class CharacterSplitter : IMultiwaySplitter
@@ -27,7 +27,7 @@ internal class CharacterSplitter : IMultiwaySplitter
         return Entry.New(parts[0], parts[1], parts[2]);
     }
 
-    public static IMultiwaySplitter SemicolonSpliter => new CharacterSplitter(';');
+    public static IMultiwaySplitter SemicolonSplitter => new CharacterSplitter(';');
 
-    public static IMultiwaySplitter CommaSpliter => new CharacterSplitter(',');
+    public static IMultiwaySplitter CommaSplitter => new CharacterSplitter(',');
 }
