@@ -23,5 +23,5 @@ internal class EntriesBuilder
         return this;
     }
 
-    public IReadOnlyList<Entry?> Build() => this.Processor.Execute(this.Reader.Read()).ToList();
+    public IReadOnlyList<Entry> Build() => this.Processor.Execute(this.Reader.Read()).ToList();
 }

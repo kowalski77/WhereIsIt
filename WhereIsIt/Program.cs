@@ -14,7 +14,7 @@ if (Support.Verify(args))
 
 static void Process(FileInfo fileInfo)
 {
-    IReadOnlyList<Entry?> entries = 
+    IReadOnlyList<Entry> entries = 
         EntriesBuilder.New
         .With(new LineFileReader(fileInfo))
         .Use(new EntriesContentSplitter())
