@@ -7,7 +7,8 @@ internal class EntriesContentSplitter : RuleBasedProcessor
 {
     protected override IMultiwaySplitter Splitter =>
         CharacterSplitter.SemicolonSplitter
-        .Append(CharacterSplitter.CommaSplitter);
+        .Append(CharacterSplitter.CommaSplitter)
+        .Append(CharacterSplitter.PercentSplitter);
 }
 
 internal class CharacterSplitter : IMultiwaySplitter
@@ -27,4 +28,6 @@ internal class CharacterSplitter : IMultiwaySplitter
     public static IMultiwaySplitter SemicolonSplitter => new CharacterSplitter(';');
 
     public static IMultiwaySplitter CommaSplitter => new CharacterSplitter(',');
+
+    public static IMultiwaySplitter PercentSplitter => new CharacterSplitter('%');
 }
