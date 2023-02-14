@@ -1,4 +1,4 @@
-﻿using WhereIsIt.Domain.LineProcessing;
+﻿using WhereIsIt.Domain.EntriesProcessing;
 using WhereIsIt.Domain.Models;
 
 namespace WhereIsIt.Domain;
@@ -7,7 +7,7 @@ internal class EntriesBuilder
 {
     private ITextReader Reader { get; set; } = TextReader.Empty;
 
-    private ILineProcessor LineProcessor { get; set; } = new DoNothing();
+    private IEntryProcessor Processor { get; set; } = new DoNothing();
         
     public static EntriesBuilder New => new();
 
@@ -17,19 +17,11 @@ internal class EntriesBuilder
         return this;
     }
 
-    public EntriesBuilder Use(ILineProcessor textProcessor)
+    public EntriesBuilder Use(IEntryProcessor processor)
     {
+        this.Processor = processor;
         return this;
     }
 
-    public IReadOnlyList<Entry> Build()
-    {
-        foreach(Line line in this.Reader.Read())
-        {
-
-        }
-
-        //return this.TextProcessor.Execute(this.Reader.Read()).ToList();
-        return null;
-    }
+    public IReadOnlyList<Entry?> Build() => this.Processor.Execute(this.Reader.Read()).ToList();
 }
