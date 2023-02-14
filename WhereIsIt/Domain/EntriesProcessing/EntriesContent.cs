@@ -3,7 +3,7 @@ using WhereIsIt.Domain.Optional;
 
 namespace WhereIsIt.Domain.EntriesProcessing;
 
-internal class EntriesContentSplitter : RuleBasedProcessor
+internal class EntriesContent : RuleBasedProcessor
 {
     protected override IMultiwaySplitter Splitter =>
         CharacterSplitter.SemicolonSplitter
