@@ -18,7 +18,7 @@ internal class ChainedProcessor : IEntryProcessor
         this.Head.Execute(lines).Concat(this.Tail.Execute(lines));
 }
 
-internal static class ChainConstruction
+internal static class ChainComposition
 {
     public static IEntryProcessor Append(this IEntryProcessor head, IEntryProcessor tail) =>
         new ChainedProcessor(head, tail);
