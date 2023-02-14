@@ -19,7 +19,7 @@ internal class EntriesBuilder
 
     public EntriesBuilder Use(IEntryProcessor processor)
     {
-        this.Processor = processor;
+        this.Processor = this.Processor.Append(processor);
         return this;
     }
 

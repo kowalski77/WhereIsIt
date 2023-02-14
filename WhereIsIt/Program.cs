@@ -17,7 +17,7 @@ static void Process(FileInfo fileInfo)
     IReadOnlyList<Entry> entries = 
         EntriesBuilder.New
         .With(new LineFileReader(fileInfo))
-        //.Use(new EntriesContent())
+        .Use(new EntriesContent())
         .Use(new LongLineEntries())
         .Build();
 
