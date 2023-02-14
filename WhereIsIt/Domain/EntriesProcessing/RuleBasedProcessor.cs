@@ -1,4 +1,5 @@
 ﻿using WhereIsIt.Domain.Models;
+using WhereIsIt.Domain.Optional;
 
 namespace WhereIsIt.Domain.EntriesProcessing;
 
@@ -6,41 +7,35 @@ internal abstract class RuleBasedProcessor : IEntryProcessor
 {
     protected abstract IMultiwaySplitter Splitter { get; }
 
-    public IEnumerable<Entry?> Execute(IEnumerable<Line> lines) =>
-        lines.Select(this.Splitter.ApplyTo);
+    public IEnumerable<Entry> Execute(IEnumerable<Line> lines) =>
+        lines.Select(this.Splitter.ApplyTo).Map();
 }
 
-internal class SplitProcessor : RuleBasedProcessor
+internal class EntriesContentSplitter : RuleBasedProcessor
 {
-    protected override IMultiwaySplitter Splitter => 
-        new SemicolonSpliter()
-        .Append(new ComaSpliter());
+    protected override IMultiwaySplitter Splitter =>
+        CharacterSplitter.SemicolonSpliter
+        .Append(CharacterSplitter.CommaSpliter);
 }
 
-internal class SemicolonSpliter : IMultiwaySplitter
+internal class CharacterSplitter : IMultiwaySplitter
 {
-    public Entry? ApplyTo(Line line)
+    private char Character { get; }
+
+    private CharacterSplitter(char character) => this.Character = character;
+
+    public Maybe<Entry> ApplyTo(Line line)
     {
-        var parts = line.Value.Split(';');
+        var parts = line.Value.Split(this.Character);
         if (parts.Length < 2)
         {
-            return null;
+            return None.Value;
         }
 
         return Entry.New(parts[0], parts[1], parts[2]);
     }
-}
 
-internal class ComaSpliter : IMultiwaySplitter
-{
-    public Entry? ApplyTo(Line line)
-    {
-        var parts = line.Value.Split(',');
-        if (parts.Length < 2)
-        {
-            return null;
-        }
+    public static IMultiwaySplitter SemicolonSpliter => new CharacterSplitter(';');
 
-        return Entry.New(parts[0], parts[1], parts[2]);
-    }
+    public static IMultiwaySplitter CommaSpliter => new CharacterSplitter(',');
 }

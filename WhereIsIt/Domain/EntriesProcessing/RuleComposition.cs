@@ -1,4 +1,5 @@
 ﻿using WhereIsIt.Domain.Models;
+using WhereIsIt.Domain.Optional;
 
 namespace WhereIsIt.Domain.EntriesProcessing;
 
@@ -20,5 +21,7 @@ internal class AppendSplitter : IMultiwaySplitter
         this.Tail = tail;
     }
 
-    public Entry? ApplyTo(Line line) => this.Head.ApplyTo(line) ?? this.Tail.ApplyTo(line);
+    public Maybe<Entry> ApplyTo(Line line) => 
+        this.Head.ApplyTo(line)
+        .OrElse(() => this.Tail.ApplyTo(line));
 }
