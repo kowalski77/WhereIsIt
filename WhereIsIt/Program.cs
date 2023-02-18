@@ -14,16 +14,11 @@ if (Support.Verify(args))
 
 static void Process(FileInfo fileInfo)
 {
-    IReadOnlyList<Entry> entries = 
+    EntriesCollection entries = 
         EntriesBuilder.New
         .With(new LineFileReader(fileInfo))
         .Use(new EntriesContent())
-        .Use(new LongLineEntries())
         .Build();
 
 
 }
-
-
-        //.Use(new SemicolonProcessor())
-        //.Use(new ComaProcessor())
