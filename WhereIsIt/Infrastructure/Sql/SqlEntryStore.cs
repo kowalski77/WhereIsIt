@@ -11,11 +11,7 @@ internal class SqlEntryStore : IEntryStore
 
     public void RemoveAll() => this.Context.Entries.RemoveRange(this.Context.Entries);
 
-    public void Save(IEnumerable<Entry> entries)
-    {
-        this.Context.Entries.AddRange(entries);
-        this.Context.SaveChanges();
-    }
+    public void Save(IEnumerable<Entry> entries) => this.Context.Entries.AddRange(entries);
 
     public IEnumerable<Entry> GetEntries() => this.Context.Entries;
 }
