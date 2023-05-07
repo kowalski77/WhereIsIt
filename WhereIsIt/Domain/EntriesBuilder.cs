@@ -7,8 +7,8 @@ internal class EntriesBuilder
 {
     private ITextReader Reader { get; set; } = TextReader.Empty;
 
-    private IEntryProcessor Processor { get; set; } = new DoNothing();
-        
+    private IEntryProcessor Processor { get; set; } = DoNothing.Empty;
+
     public static EntriesBuilder New => new();
 
     public EntriesBuilder With(ITextReader textReader)

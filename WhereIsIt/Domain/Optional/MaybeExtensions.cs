@@ -33,5 +33,5 @@ public static class MaybeExtensions
 
     // Or
     public static Maybe<T> OrElse<T>(this Maybe<T> maybe, Func<Maybe<T>> next) =>
-        maybe is Some<T> ? maybe : next.NonNull()();
+        maybe is Some<T> some ? some : next.NonNull()();
 }
